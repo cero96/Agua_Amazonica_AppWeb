@@ -1,0 +1,23 @@
+.product-name {
+  color: #1a1a1a; /* Título del producto */
+}
+
+.product-size {
+  color: #555; /* Tamaño (antes #666 → ahora más oscuro) */
+}
+
+.product-price {
+  color: #007bff; /* Precio destacado */
+}
+
+.out-of-stock {
+  color: white; /* Texto blanco sobre fondo rojo */
+}
+
+.add-to-cart-btn {
+  color: white;
+}
+
+.add-to-cart-btn.disabled {
+  color: #777; /* Texto deshabilitado */
+}

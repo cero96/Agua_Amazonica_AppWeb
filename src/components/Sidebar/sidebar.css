@@ -1,0 +1,313 @@
+/* ===========================
+   SIDEBAR.CSS - MINIMALISTA & RESPONSIVE
+   Agua Amazónica
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* ===========================
+   VARIABLES
+=========================== */
+:root {
+  --sidebar-width-desktop: 260px;
+  --sidebar-width-tablet: 80px;
+  --sidebar-width-mobile: 100%;
+  --sidebar-height-mobile: 64px;
+
+  --color-bg: #0a3d4a;
+  --color-bg-hover: rgba(255, 255, 255, 0.08);
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.75);
+  --color-accent: #a0e7ff;
+  --color-active: #ffffff;
+
+  --transition: 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius: 12px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* ===========================
+   SIDEBAR BASE
+=========================== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width-desktop);
+  height: 100vh;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--color-text);
+  z-index: 1000;
+  transition: width var(--transition);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.sidebar__brand {
+  padding: 2rem 1.5rem 1.5rem;
+  text-align: center;
+  opacity: 1;
+  transition: opacity var(--transition), padding var(--transition);
+}
+
+.sidebar__brand img {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  filter: brightness(1.1);
+  transition: max-width var(--transition);
+}
+
+.sidebar__nav {
+  flex: 1;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--color-accent);
+  transform: scaleY(0);
+  transition: transform var(--transition);
+}
+
+.sidebar__link:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text);
+  transform: translateX(2px);
+}
+
+.sidebar__link.active {
+  background: rgba(160, 231, 255, 0.15);
+  color: var(--color-active);
+  font-weight: 600;
+}
+
+.sidebar__link.active::before {
+  transform: scaleY(1);
+}
+
+/* Icono opcional (puedes agregar <span> en JSX) */
+.sidebar__link span {
+  margin-right: 0.75rem;
+  font-size: 1.1rem;
+}
+
+/* ===========================
+   RESPONSIVE - TABLET (≤900px)
+=========================== */
+@media (max-width: 900px) {
+  .sidebar {
+    width: var(--sidebar-width-tablet);
+  }
+
+  .sidebar__brand {
+    padding: 1.5rem 1rem;
+  }
+
+  .sidebar__brand img {
+    max-width: 44px;
+  }
+
+  .sidebar__link {
+    justify-content: center;
+    padding: 1rem;
+    font-size: 0;
+  }
+
+  .sidebar__link span {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .sidebar__link:hover {
+    transform: none;
+  }
+
+  .sidebar__link::before {
+    width: 100%;
+    height: 3px;
+    top: auto;
+    bottom: 0;
+    left: 0;
+  }
+
+  .sidebar__link.active {
+    background: rgba(160, 231, 255, 0.2);
+  }
+}
+
+/* ===========================
+   RESPONSIVE - MÓVIL (≤600px) → BARRA INFERIOR
+=========================== */
+@media (max-width: 600px) {
+  .sidebar {
+    top: auto;
+    bottom: 0;
+    width: var(--sidebar-width-mobile);
+    height: var(--sidebar-height-mobile);
+    flex-direction: row;
+    padding: 0 0.5rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .sidebar__brand {
+    display: none;
+  }
+
+  .sidebar__nav {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    gap: 0;
+  }
+
+  .sidebar__link {
+    flex: 1;
+    justify-content: center;
+    padding: 0.75rem 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border-radius: 8px;
+  }
+
+  .sidebar__link span {
+    display: block;
+    font-size: 1.3rem;
+    margin: 0 0 4px 0;
+  }
+
+  .sidebar__link::before {
+    display: none;
+  }
+
+  .sidebar__link.active {
+    background: rgba(160, 231, 255, 0.2);
+    color: var(--color-active);
+  }
+
+  .sidebar__link:hover {
+    background: var(--color-bg-hover);
+  }
+}
+
+/* ===========================
+   MAIN CONTENT (ajusta al sidebar)
+=========================== */
+.main-content,
+.promotion-container {
+  margin-left: var(--sidebar-width-desktop);
+  width: calc(100% - var(--sidebar-width-desktop));
+  min-height: 100vh;
+  transition: margin-left var(--transition), width var(--transition);
+}
+/* Iconos Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+/* Texto del enlace */
+.sidebar__link-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: opacity var(--transition);
+}
+
+/* Desktop: mostrar texto */
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Tablet: ocultar texto */
+@media (max-width: 900px) {
+  .sidebar__link-text {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  .sidebar__link {
+    justify-content: center;
+    padding: 1rem;
+  }
+}
+
+/* Móvil: mostrar texto corto */
+@media (max-width: 600px) {
+  .sidebar__link-text {
+    opacity: 1;
+    width: auto;
+    font-size: 0.7rem;
+    text-align: center;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .sidebar__link {
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    padding: 0.5rem 0;
+  }
+}
+@media (max-width: 900px) {
+  .main-content,
+  .promotion-container {
+    margin-left: var(--sidebar-width-tablet);
+    width: calc(100% - var(--sidebar-width-tablet));
+  }
+}
+
+@media (max-width: 600px) {
+  .main-content,
+  .promotion-container {
+    margin-left: 0;
+    margin-bottom: var(--sidebar-height-mobile);
+    width: 100%;
+    padding-bottom: calc(var(--sidebar-height-mobile) + 1rem);
+  }
+}
+
+/* ===========================
+   ACCESIBILIDAD & FOCUS
+=========================== */
+.sidebar__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Smooth scroll en móvil */
+html {
+  scroll-behavior: smooth;
+}
