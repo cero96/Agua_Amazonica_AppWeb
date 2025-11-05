@@ -1,12 +1,12 @@
-// src/pages/Promotion.jsx
+// src/pages/SolicitarProductos.jsx
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import styles from "./Promotion.module.css";
 import "leaflet/dist/leaflet.css";
 
-// Imágenes
-const pack500 = "/images/productos/bottle-left.png";
-const botellon = "/images/productos/botellon-llave.webp";
+// Imágenes de productos
+const pack500 = "/images/productos/Botellon_azul_trasparente.png";
+const botellon = "/images/productos/botellon_llave.png";
 
 // Zona de cobertura
 const ZONA_COBERTURA = {
@@ -21,7 +21,6 @@ function DraggableMarker({ position, setPosition }) {
       setPosition([e.latlng.lat, e.latlng.lng]);
     },
   });
-
   return position ? <Marker position={position} draggable /> : null;
 }
 
@@ -39,7 +38,7 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   return R * c * 1000;
 };
 
-const Promotion = () => {
+const SolicitarProductos = () => {
   const [formData, setFormData] = useState({
     nombre: "",
     telefono: "",
@@ -84,6 +83,7 @@ const Promotion = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // === ENVÍO POR WHATSAPP ===
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!position) {
@@ -94,9 +94,33 @@ const Promotion = () => {
     const precio = formData.producto === "rellenada" ? 1.0 : 6.5;
     const total = precio * formData.cantidad + costoEntrega;
 
-    alert(`Promoción solicitada! Total: $${total.toFixed(2)}`);
+    const mensaje = `🧾 Pedido de productos:\n
+Cliente: ${formData.nombre}\n
+Teléfono: ${formData.telefono}\n
+Producto: ${
+      formData.producto === "rellenada"
+        ? "Agua rellenada"
+        : "Botellón completo + dispensador"
+    }\n
+Cantidad: ${formData.cantidad}\n
+Dirección: ${formData.direccion}\n
+Total: $${total.toFixed(2)}\n
+${fueraDeCobertura ? "🛵 +$1.50 (fuera de zona)" : "🚚 Entrega gratuita"}
+`;
 
-    setFormData({ nombre: "", telefono: "", producto: "", cantidad: 1, direccion: "" });
+    const numeroWhatsApp = "593979078578";
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
+      mensaje
+    )}`;
+    window.open(url, "_blank");
+
+    setFormData({
+      nombre: "",
+      telefono: "",
+      producto: "",
+      cantidad: 1,
+      direccion: "",
+    });
     setPosition(null);
   };
 
@@ -106,39 +130,37 @@ const Promotion = () => {
 
   return (
     <>
-      {/* Fondo parallax fijo */}
       <div className={styles.heroBackground}></div>
 
-      {/* Contenedor principal con scroll natural */}
       <div className={styles.heroContainer}>
         <div className={styles.contentWrapper}>
-          <h1>Promociones</h1>
+          <h1>Solicitar Productos</h1>
 
           <div className={styles.offerGrid}>
             <div className={styles.offerCard}>
-              <img src={pack500} alt="Pack 500ML" className={styles.offerImage} />
-              <h3>Rellenada Económica</h3>
-              <p>Solo <strong>$1.00</strong> por galón</p>
+              <img src={pack500} alt="Agua Rellenada" className={styles.offerImage} />
+              <h3>Agua Rellenada</h3>
+              <p>Precio: <strong>$1.00</strong> por galón</p>
             </div>
             <div className={styles.offerCard}>
               <img src={botellon} alt="Botellón" className={styles.offerImage} />
-              <h3>2 Botellónes Completos + Dispensador de Agua </h3>
-              <p>Solo <strong>$11.50</strong> todo.</p>
+              <h3>Botellón Completo + Dispensador</h3>
+              <p>Precio: <strong>$11.50</strong> todo el set</p>
             </div>
           </div>
 
           <div className={styles.mechanics}>
-            <h3>¿Cómo obtener la promoción?</h3>
+            <h3>Cómo solicitar tu producto</h3>
             <hr />
             <ul>
-              <li>Elige su mejor oferta</li>
-              <li>Toca el mapa para ubicarte</li>
-              <li>Completa el formulario para solicitar tu promoción</li>
+              <li>Selecciona tu producto y cantidad</li>
+              <li>Toca el mapa para marcar tu ubicación</li>
+              <li>Completa el formulario y envía tu pedido por WhatsApp</li>
             </ul>
           </div>
 
           <div className={styles.form}>
-            <h3>Solicita tu promoción</h3>
+            <h3>Formulario de pedido</h3>
             <form onSubmit={handleSubmit}>
               <label htmlFor="nombre">Nombres Completos</label>
               <input
@@ -164,10 +186,16 @@ const Promotion = () => {
               />
 
               <label htmlFor="producto">Producto</label>
-              <select id="producto" name="producto" value={formData.producto} onChange={handleChange} required>
+              <select
+                id="producto"
+                name="producto"
+                value={formData.producto}
+                onChange={handleChange}
+                required
+              >
                 <option value="" disabled>Selecciona</option>
-                <option value="rellenada">Rellenada - $1.00/galón</option>
-                <option value="botellon">2 Botellónes + Dispensador de agua - $11.50</option>
+                <option value="rellenada">Agua Rellenada - $1.00/galón</option>
+                <option value="botellon">Botellón + Dispensador - $11.50</option>
               </select>
 
               <label htmlFor="cantidad">Cantidad</label>
@@ -205,23 +233,28 @@ const Promotion = () => {
               </div>
 
               {position && (
-                <p className={`${styles.deliveryInfo} ${fueraDeCobertura ? styles.warning : styles.success}`}>
-                  {fueraDeCobertura ? "+$1.50 (fuera de zona)" : "Entrega gratuita"}
+                <p
+                  className={`${styles.deliveryInfo} ${
+                    fueraDeCobertura ? styles.warning : styles.success
+                  }`}
+                >
+                  {fueraDeCobertura
+                    ? "+$1.50 (fuera de zona)"
+                    : "Entrega gratuita"}
                 </p>
               )}
 
               <button type="submit" className={styles.submitButton}>
-                ¡Quiero mi promoción!
+                📦 Enviar pedido por WhatsApp
               </button>
             </form>
           </div>
 
           <p className={styles.note}>
-            Válida del 1 nov al 31 dic 2025. Entrega gratuita en 8 km.
+            Entregas disponibles todos los días. Servicio gratuito en un radio de 8 km.
           </p>
         </div>
 
-        {/* Botón volver arriba */}
         <button
           className={`${styles.backToTop} ${showBackToTop ? styles.show : ""}`}
           onClick={scrollToTop}
@@ -234,4 +267,4 @@ const Promotion = () => {
   );
 };
 
-export default Promotion;
+export default SolicitarProductos;

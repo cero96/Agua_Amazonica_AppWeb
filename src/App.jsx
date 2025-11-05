@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./pages/Home/Home";
-import Promotions from "./pages/Promocion/Promotion";
+import SolicitarProductos from "./pages/Promocion/Promotion";
 import ProductPage from "./pages/Producto/ProductsPage";
 import CompanyPresentation from "./pages/CompanyPresentation/CompanyPresentation";
 import ContactPage from "./pages/Contact/ContactPage";
@@ -29,7 +29,7 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/promotions" element={<Promotions />} />
+            <Route path="/promotions" element={<SolicitarProductos />} />
             <Route path="/products" element={<ProductPage />} />
             <Route path="/company" element={<CompanyPresentation />} />
             <Route path="/contacts" element={<ContactPage />} />

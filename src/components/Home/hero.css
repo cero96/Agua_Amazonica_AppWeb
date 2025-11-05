@@ -1,269 +1,238 @@
 /* =========================
-   HERO.CSS - BOTÓN CON POSICIÓN LIBRE
-   Mueve solo el botón con variables
+   HERO SECTION RESPONSIVO Y MODERNO
 =========================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap');
-
-/* =========================
-   VARIABLES DE CONTROL
-   Solo el botón se mueve libremente
-=========================== */
-:root {
-  /* SIDEBAR */
-  --sidebar-width-desktop: 260px;
-  --sidebar-width-tablet: 80px;
-
-  /* TÍTULO (fijo) */
-  --hero-title-top: 30%;
-  --hero-title-right: 60%;
-
-  /* BOTELLAS (fijo) */
-  --hero-bottles-top: 60%;
-  --hero-bottles-left: 90%;
-
-  /* MEDALLA (fijo) */
-  --hero-badge-bottom: 60%;
-  --hero-badge-left: 80%;
-
-  /* BOTÓN CTA - POSICIÓN LIBRE */
-  --cta-top: 50%;        /* ↑↓ Mover arriba/abajo */
-  --cta-left: 50%;       /* ←→ Mover izquierda/derecha */
-  --cta-offset-x: -50%;  /* Centrado horizontal (ajusta si cambias left) */
-  --cta-offset-y: -50%;  /* Centrado vertical */
-
-  /* COLORES */
-  --color-accent: #bde038;
-  --color-accent-hover: #c7ff47;
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
-/* =========================
-   HERO CONTAINER
-=========================== */
-.hero-container {
+/* Fondo */
+.heroContainer {
   position: fixed;
   inset: 0;
   background: url('/images/banners/hero-bg.jpg') center/cover no-repeat;
   background-attachment: fixed;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  padding-left: calc(2rem + var(--sidebar-width-desktop));
-  box-sizing: border-box;
-  overflow: hidden;
+  overflow-y: auto;
   font-family: 'Inter', sans-serif;
-  z-index: 0;
 }
-/*
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 20, 40, 0.5);
-  backdrop-filter: blur(1px);
+
+/* Contenido principal */
+.contentWrapper {
+  position: relative;
   z-index: 1;
-  pointer-events: none;
-}
-*/
-/* =========================
-   TÍTULO (fijo)
-=========================== */
-.hero__title-container {
-  position: absolute;
-  top: 30%;
-  right: 68%;
-  max-width: 500px;
-  z-index: 3;
-  animation: fadeInRight 1s ease-out;
-}
-
-.hero__title {
-  margin: 0;
-  font-size: clamp(2.2rem, 6vw, 4rem);
-  font-weight: 800;
-  color: #000000;
-  text-align: right;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-.hero__title span {
-  display: block;
-  font-size: clamp(1rem, 3vw, 1.4rem);
-  font-weight: 600;
-  font-style: italic;
-  color: var(--color-accent);
-  margin-top: 0.5rem;
-}
-
-/* =========================
-   BOTÓN CTA - POSICIÓN LIBRE
-   Cambia --cta-top y --cta-left
-=========================== */
-.hero__cta-button {
-  position: absolute;
-  top: 70%;           /* ↑↓ Mover arriba/abajo */
-  left: 40%;         /* ←→ Mover izquierda/derecha */
-  transform: translate(var(--cta-offset-x), var(--cta-offset-y));
-  padding: 1rem 2.5rem;
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  font-weight: 700;
-  color: #0f2c3b;
-  background: var(--color-accent);
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: all 0.3s ease;
-  z-index: 4;
-  white-space: nowrap;
-}
-
-.hero__cta-button:hover {
-  background: var(--color-accent-hover);
-  transform: translate(var(--cta-offset-x), calc(var(--cta-offset-y) - 6px));
-  box-shadow: 0 12px 32px rgba(189, 224, 56, 0.4);
-}
-
-/* =========================
-   BOTELLAS (fijo)
-=========================== */
-.hero__center {
-  position: absolute;
-  top: 50%;
-  left: 98%;
-  transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 800px;
-  z-index: 2;
+  max-width: 1200px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2rem 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
 }
 
-.hero__bottles {
+/* === Layout de columnas === */
+.contactContainer {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 2rem;
-  width: 100%;
-  max-width: 600px;
+  flex-wrap: wrap;
 }
 
-.bottle {
-  width: clamp(180px, 30vw, 280px);
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.3));
-  animation: float 3s ease-in-out infinite;
-  transition: transform 0.3s ease;
+/* COLUMNA IZQUIERDA */
+.leftColumn {
+  flex: 1 1 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.bottle img { width: 100%; height: auto; }
-.bottle--left { animation-delay: 0s; }
-.bottle--right { animation-delay: 0.4s; }
-.bottle:hover { transform: translateY(-8px) scale(1.03); }
-
-/* =========================
-   MEDALLA (fijo)
-=========================== */
-.hero__bottom-left {
-  position: absolute;
-  bottom: var(--hero-badge-bottom);
-  top:2%;
-  left: 85%;
-  width: clamp(120px, 20vw, 200px);
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
-  z-index: 3;
-  animation: fadeInLeft 1.2s ease-out;
+.contactCard,
+.infoBlock {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #f0f6f2;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
-.hero__bottom-left img { width: 100%; height: auto; }
-
-/* =========================
-   ANIMACIONES
-=========================== */
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-3deg); }
-  50% { transform: translateY(-12px) rotate(-3deg); }
+.contactCard h3,
+.infoBlock h3 {
+  color: #bde038;
+  margin-bottom: 0.6rem;
 }
 
-@keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes fadeInLeft  { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-
-/* =========================
-   RESPONSIVE - TABLET
-=========================== */
-@media (max-width: 900px) {
-  .hero-container {
-    padding-left: calc(1.5rem + var(--sidebar-width-tablet));
-  }
-
-  :root {
-    --hero-title-top: 1.5rem;
-    --hero-title-right: 1.5rem;
-    --hero-badge-bottom: 1.5rem;
-    --hero-badge-left: 1.5rem;
-  }
-
-  .hero__title { font-size: clamp(1.8rem, 5vw, 3rem); }
-  .bottle { width: clamp(140px, 28vw, 220px); }
+/* COLUMNA DERECHA */
+.rightColumn {
+  flex: 1 1 55%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* =========================
-   RESPONSIVE - MÓVIL
-=========================== */
-@media (max-width: 600px) {
-  .hero-container {
-    padding: 1rem;
-    padding-left: 1rem;
-    padding-top: 8vh;
-    justify-content: flex-start;
+.contactForm {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.contactForm h3 {
+  color: #BDE038;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.contactForm p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Botones */
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.submitButton {
+  padding: 0.9rem 1.8rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.submitButton:first-of-type {
+  background: #bde038;
+  color: #111;
+}
+
+.submitButton:last-of-type {
+  background: rgba(255, 255, 255, 0.2);
+  color: #1b1a1a;
+  border: 1px solid #fff;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+}
+
+/* === IMÁGENES DE PRODUCTO === */
+.imageWrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.5rem;
+}
+
+/* Imagen grande */
+.imageWrapper img:first-child {
+  width: 220px;
+  height: 460px;
+  object-fit: contain;
+}
+
+/* Imagen pequeña */
+.imageWrapper img:last-child {
+  width: 160px;
+  height: 340px;
+  object-fit: contain;
+}
+
+/* Sombras */
+.imageWrapper img {
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Bloque inferior */
+.infoBlock {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .contentWrapper {
+    padding: 1.5rem;
   }
 
-  /* En móvil: botón sigue posición relativa */
-  .hero__cta-button,
-  .hero__title-container,
-  .hero__center,
-  .hero__bottom-left {
-    position: relative;
-    top: auto; left: auto; bottom: auto; right: auto;
-    transform: none;
-    margin: 1rem 0;
-    text-align: center;
-  }
-
-  .hero__cta-button {
-    order: 2;
-    width: fit-content;
-    align-self: center;
-  }
-
-  .hero__title-container { order: 1; }
-  .hero__center { order: 3; margin: 2rem 0; }
-  .hero__bottom-left { order: 4; align-self: flex-start; }
-
-  .hero__bottles {
-    flex-direction: column;
+  .contactContainer {
     gap: 1.5rem;
   }
 
-  .bottle {
-    width: clamp(120px, 45vw, 180px);
-    animation: none;
+  .imageWrapper img:first-child {
+    width: 180px;
+    height: 380px;
+  }
+
+  .imageWrapper img:last-child {
+    width: 130px;
+    height: 280px;
   }
 }
 
-/* =========================
-   LANDSCAPE MÓVIL
-=========================== */
-@media (max-height: 500px) and (orientation: landscape) {
-  .hero__cta-button,
-  .hero__title-container,
-  .hero__center,
-  .hero__bottom-left {
-    position: absolute;
+/* Celulares */
+@media (max-width: 768px) {
+  .contactContainer {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .hero__cta-button {
-    top: var(--cta-top);
-    left: var(--cta-left);
-    transform: translate(var(--cta-offset-x), var(--cta-offset-y));
+  .leftColumn,
+  .rightColumn {
+    width: 100%;
+  }
+
+  .contactForm h3 {
+    font-size: 1.5rem;
+  }
+
+  .imageWrapper {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .imageWrapper img:first-child {
+    width: 160px;
+    height: 320px;
+  }
+
+  .imageWrapper img:last-child {
+    width: 120px;
+    height: 240px;
+  }
+}
+
+/* Teléfonos pequeños */
+@media (max-width: 480px) {
+  .imageWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imageWrapper img:first-child {
+    width: 140px;
+    height: 280px;
+  }
+
+  .imageWrapper img:last-child {
+    width: 100px;
+    height: 200px;
   }
 }

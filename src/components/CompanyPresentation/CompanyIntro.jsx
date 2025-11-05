@@ -32,7 +32,7 @@ const CompanyIntro = () => {
         </p>
       </div>
       <div className="company-image">
-        <img src="./images/logo/logo1.png" alt="Nuestros valores" />
+        <img src="./images/banners/planta_purificadora.png" alt="Nuestros valores" />
       </div>
     </section>
   );

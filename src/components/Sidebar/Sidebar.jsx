@@ -1,43 +1,82 @@
 // src/components/Sidebar.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import "./sidebar.css"; // Asegúrate de que la ruta sea correcta
+import "./sidebar.css";
 
 const links = [
   { label: "INICIO", path: "/", icon: "home" },
-  { label: "PROMOCIONES", path: "/promotions", icon: "local_offer" },
-  { label: "PRODUCTOS", path: "/products", icon: "water_drop" },,
+  { label: "SOLICITAR PRODUCTO", path: "/promotions", icon: "local_offer" },
+  { label: "PRODUCTOS", path: "/products", icon: "water_drop" },
   { label: "NOSOTROS", path: "/company", icon: "info" },
   { label: "CONTACTO", path: "/contacts", icon: "mail" },
 ];
 
 export default function Sidebar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Cerrar menú al hacer clic en un enlace (solo móvil)
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const closeMenu = () => setIsMobileMenuOpen(false);
+      window.addEventListener("resize", closeMenu);
+      return () => window.removeEventListener("resize", closeMenu);
+    }
+  }, [isMobileMenuOpen]);
+
   return (
-    <aside className="sidebar">
-      {/* Logo */}
-      <div className="sidebar__brand">
-        <img src="/images/logo/logo1.png" alt="Agua Amazónica" />
-      </div>
+    <>
+      {/* Botón hamburguesa (solo móvil) */}
+      <button
+        className="sidebar__mobile-toggle"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        <span className="material-symbols-outlined">
+          {isMobileMenuOpen ? "close" : "menu"}
+        </span>
+      </button>
 
-      {/* Navegación */}
-      <nav className="sidebar__nav">
-        {links.map((link) => (
-          <NavLink
-            key={link.path}
-            to={link.path}
-            className={({ isActive }) =>
-              `sidebar__link ${isActive ? "active" : ""}`
-            }
-            end // Para que "/" no active en todas las rutas
-          >
-            {/* Icono */}
-            <span className="material-symbols-outlined">{link.icon}</span>
+      <aside
+        className={`sidebar ${isCollapsed ? "collapsed" : ""} ${
+          isMobileMenuOpen ? "open" : ""
+        }`}
+      >
+        {/* Botón de colapso (desktop) */}
+        <button
+          className="sidebar__toggle"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          aria-label={isCollapsed ? "Expandir menú" : "Colapsar menú"}
+        >
+          <span className="material-symbols-outlined">
+            {isCollapsed ? "chevron_right" : "chevron_left"}
+          </span>
+        </button>
 
-            {/* Texto (solo visible en desktop y móvil) */}
-            <span className="sidebar__link-text">{link.label}</span>
-          </NavLink>
-        ))}
-      </nav>
-    </aside>
+        {/* Logo */}
+        <div className="sidebar__brand">
+          <img src="/images/logo/Icono_Monkey.jpeg" alt="Agua Amazónica" />
+        </div>
+
+        {/* Navegación */}
+        <nav className="sidebar__nav">
+          {links.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              className={({ isActive }) =>
+                `sidebar__link ${isActive ? "active" : ""}`
+              }
+              end
+              onClick={() => setIsMobileMenuOpen(false)} // Cierra al hacer clic
+            >
+              <span className="material-symbols-outlined sidebar__icon">
+                {link.icon}
+              </span>
+              <span className="sidebar__link-text">{link.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+      </aside>
+    </>
   );
 }
