@@ -1,63 +1,85 @@
-import React from "react";
-import "./hero.css";
+import React, { useState } from 'react';
+import './hero.css';
+
+// Importar Google Fonts en el index.html o con @import en CSS
+// <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
 export default function Hero() {
+  const [animating, setAnimating] = useState({ large: false, small: false, bottle: false });
+
+  const handleClick = (size) => {
+    setAnimating(prev => ({ ...prev, [size]: true }));
+    setTimeout(() => {
+      setAnimating(prev => ({ ...prev, [size]: false }));
+    }, 600);
+  };
+
   return (
-    <section className="heroContainer">
-      <div className="contentWrapper">
-        <div className="contactContainer">
+    <section className="hero-container">
+      <div className="hero-content">
+        {/* Título de la empresa */}
+        <h1 className="company-title">AGUA AMAZÓNICA</h1>
 
-          {/* Columna izquierda */}
-          <div className="leftColumn">
-            <div className="contactCard">
-              <h3>100% Natural</h3>
-              <p>Agua mineral pura de los Andes, saludable y refrescante.</p>
-            </div>
+        {/* Frase principal con tipografía elegante */}
+        <p className="hero-slogan">
+          Escoger la pureza <span className="highlight">tiene su recompensa</span>
+        </p>
 
-            <div className="infoBlock">
-              <h3>Beneficios</h3>
-              <p>Sin aditivos, directamente desde manantiales naturales.</p>
-            </div>
-             <div className="infoBlock" >
-                <h3>Bienestar sin límites</h3>
-                <p>100% Natural | 0 Aditivos | ∞ Bienestar</p>
-              </div>
+        {/* Contenedor de botellas */}
+        <div className="bottles-container">
+          {/* Botellón 20L */}
+          <div
+            className={`bottle-wrapper ${animating.large ? 'bounce' : ''}`}
+            onClick={() => handleClick('large')}
+            role="button"
+            tabIndex={0}
+            aria-label="Botellón 20L"
+          >
+            <img
+              src="/images/productos/Botellon_azul_trasparente-removebg-preview.png"
+              alt="Botellón 20 litros - Agua Amazónica"
+              className="bottle-image bottle-large"
+            />
+            <div className="bottle-label">Botellón 20L</div>
           </div>
 
-             
-
-          {/* Columna derecha */}
-          <div className="rightColumn">
-            <div className="contactForm">
-              <h3>Elegir pureza tiene su premio</h3>
-              <p style={{ textAlign: "center" }}>
-                Agua mineral de los Andes, pura y saludable para tu bienestar diario.
-              </p>
-
-
-
-              <div className="imageWrapper">
-                <img
-                  src="/images/productos/Botellon_20litros.png"
-                  alt="Botella grande"
-                />
-                <img
-                  src="/images/productos/agua_botella_500ml.png"
-                  alt="Botella pequeña"
-                  style={{ marginLeft: "1rem" }}
-                />
-              </div>
-
-              <div className="checkbox" style={{ justifyContent: "center", marginTop: "1rem" }}>
-                <button className="submitButton" style={{ background: "#bde038" }}>
-                  Comprar Ahora
-                </button>
-              </div>
-
-            </div>
+          {/* Galón */}
+          <div
+            className={`bottle-wrapper ${animating.small ? 'bounce' : ''}`}
+            onClick={() => handleClick('small')}
+            role="button"
+            tabIndex={0}
+            aria-label="Galon de agua"
+          >
+            <img
+              src="/images/productos/Galon_Blanco-removebg-preview.png"
+              alt="Galon de agua - Agua Amazónica"
+              className="bottle-image bottle-small"
+            />
+            <div className="bottle-label">Galon</div>
           </div>
 
+          {/* Botella 500ml */}
+          <div
+            className={`bottle-wrapper ${animating.bottle ? 'bounce' : ''}`}
+            onClick={() => handleClick('bottle')}
+            role="button"
+            tabIndex={0}
+            aria-label="Botella 500ml"
+          >
+            <img
+              src="/images/productos/agua_botella_500ml-removebg-preview.png"
+              alt="Botella 500ml - Agua Amazónica"
+              className="bottle-image bottle-medium"
+            />
+            <div className="bottle-label">Botella 500ml</div>
+          </div>
         </div>
+
+        {/* Botón CTA */}
+        <button className="cta-button" aria-label="Comprar ahora">
+          Comprar Ahora
+        </button>
       </div>
     </section>
   );

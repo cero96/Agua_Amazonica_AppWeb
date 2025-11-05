@@ -1,10 +1,8 @@
-/* src/pages/css/ProductPage.module.css */
-
 /* === CONTENEDOR PRINCIPAL === */
 .productPage {
   position: fixed;
   inset: 0;
-  background: url('/images/banners/hero-bg.jpg') center/cover no-repeat;
+  background: url('/images/banners/productos.jpeg') center/cover no-repeat;
   background-attachment: fixed;
   display: flex;
   flex-direction: column;
@@ -174,11 +172,11 @@
   transform: none;
 }
 
-/* === IMÁGENES DE PRODUCTO (AJUSTADAS COMPLETAS) === */
+/* === IMÁGENES DE PRODUCTO (COMPLETAS) === */
 .productImage {
   width: 100%;
   height: 220px;
-  object-fit: contain; /* mostrar imagen completa */
+  object-fit: contain;
   background: rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   padding: 1rem;
@@ -272,13 +270,6 @@
 
 .skeletonLine.short { width: 60%; }
 
-.skeletonButton {
-  height: 36px;
-  background: #e5e7eb;
-  border-radius: 10px;
-  margin-top: 0.5rem;
-}
-
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
@@ -294,6 +285,7 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  padding-left: calc(1rem + var(--sidebar-width-desktop, 0px));
   z-index: 2000;
   animation: fadeIn 0.3s ease;
 }
@@ -308,6 +300,8 @@
   position: relative;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.22);
   animation: slideUpModal 0.4s ease;
+  margin-left: calc(var(--sidebar-width-desktop, 0px) / 2);
+  margin-right: auto;
 }
 
 @keyframes fadeIn {
@@ -343,6 +337,11 @@
   transform: scale(1.1);
 }
 
+.closeDetail:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 .detailGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -353,8 +352,8 @@
 .detailImage img {
   width: 100%;
   height: auto;
-  max-height: 400px;
-  object-fit: contain; /* mostrar imagen completa */
+  max-height: 420px;
+  object-fit: contain;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
@@ -427,6 +426,17 @@
 }
 
 /* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .productDetailOverlay {
+    padding-left: 1rem;
+  }
+
+  .productDetail {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .productPage {
     padding: 1.5rem;
@@ -464,7 +474,6 @@
   }
 
   .detailImage img {
-    height: auto;
     max-height: 300px;
   }
 }

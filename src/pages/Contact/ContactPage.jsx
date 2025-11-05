@@ -47,7 +47,7 @@ export default function ContactPage() {
           <div className="rightColumn">
             <ContactForm />
             <div className="imageWrapper">
-              <img src="/images/logo/Icono_Monkey.jpeg" alt="Cliente feliz" />
+              <img src="/images/logo/Icono_Monkey.png" alt="Cliente feliz" />
             </div>
           </div>
         </div>

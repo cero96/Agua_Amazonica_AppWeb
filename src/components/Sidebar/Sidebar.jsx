@@ -15,14 +15,30 @@ export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Cerrar menú al hacer clic en un enlace (solo móvil)
+  // Cerrar menú móvil al cambiar tamaño de ventana
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMobileMenuOpen]);
+
+  // Prevenir scroll cuando el menú móvil está abierto
   useEffect(() => {
     if (isMobileMenuOpen) {
-      const closeMenu = () => setIsMobileMenuOpen(false);
-      window.addEventListener("resize", closeMenu);
-      return () => window.removeEventListener("resize", closeMenu);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
     }
   }, [isMobileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -30,11 +46,20 @@ export default function Sidebar() {
       <button
         className="sidebar__mobile-toggle"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle menu"
       >
         <span className="material-symbols-outlined">
           {isMobileMenuOpen ? "close" : "menu"}
         </span>
       </button>
+
+      {/* Overlay para cerrar al hacer clic fuera (solo móvil) */}
+      {isMobileMenuOpen && (
+        <div 
+          className="sidebar__overlay" 
+          onClick={closeMobileMenu}
+        />
+      )}
 
       <aside
         className={`sidebar ${isCollapsed ? "collapsed" : ""} ${
@@ -54,7 +79,7 @@ export default function Sidebar() {
 
         {/* Logo */}
         <div className="sidebar__brand">
-          <img src="/images/logo/Icono_Monkey.jpeg" alt="Agua Amazónica" />
+          <img src="/images/logo/Icono_Monkey.png" alt="Agua Amazónica" />
         </div>
 
         {/* Navegación */}
@@ -67,7 +92,7 @@ export default function Sidebar() {
                 `sidebar__link ${isActive ? "active" : ""}`
               }
               end
-              onClick={() => setIsMobileMenuOpen(false)} // Cierra al hacer clic
+              onClick={closeMobileMenu}
             >
               <span className="material-symbols-outlined sidebar__icon">
                 {link.icon}
