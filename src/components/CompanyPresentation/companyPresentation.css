@@ -1,5 +1,10 @@
-/* === PRESENTACIÓN DE LA EMPRESA === */
-.company-presentation {
+/* ================================
+   COMPANY-PRESENTATION.MODULE.CSS
+   Versión corregida: 100% legible sobre fondo verde, imágenes responsivas sin distorsión
+================================ */
+
+/* === HERO FULL-SCREEN BACKGROUND === */
+.companyPresentation {
   position: fixed;
   inset: 0;
   background: url('/images/banners/hero-bg.jpg') center/cover no-repeat;
@@ -8,163 +13,327 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  overflow-y: auto;
-  font-family: 'Inter', sans-serif;
   padding: 2rem;
   padding-top: 4rem;
   padding-bottom: 4rem;
   padding-left: calc(2rem + var(--sidebar-width-desktop, 0px));
-  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
   z-index: 0;
 }
 
-/* === CONTENEDOR DE CONTENIDO === */
-.company-intro,
-.values-section {
+/* === CONTENIDO PRINCIPAL === */
+.contentWrapper {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: 1100px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 2rem 2.5rem;
   margin-bottom: 3rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: #f0f6f2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* === SECCIÓN INTRODUCCIÓN === */
-.company-intro {
+.introSection {
   display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 40px;
 }
 
-.company-text {
+/* === COLUMNA TEXTO === */
+.textColumn {
   flex: 1 1 55%;
-  text-align: justify;
+  min-width: 280px;
 }
 
-.company-text .title {
+.textColumn h1 {
+  text-align: left;
+  color: #f0f6f2;
+  margin-bottom: 1.5rem;
   font-size: 2.3rem;
   font-weight: 700;
-  color: #f0f6f2;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  line-height: 1.2;
 }
 
-.company-text .title span {
+.textColumn h1 span {
   display: block;
-  font-size: 1.3rem;
   color: #BDE038;
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
 }
 
-.company-text p {
-  line-height: 1.6;
+.textColumn p {
   margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
   color: #f7fafc;
 }
 
-.company-image {
+.textColumn p b {
+  color: #BDE038;
+  font-weight: 600;
+}
+
+/* === COLUMNA IMAGEN (PLANTA) === */
+.imageColumn {
   flex: 1 1 40%;
+  min-width: 280px;
   text-align: center;
 }
 
-.company-image img {
+.imageColumn img {
   max-width: 100%;
   height: auto;
   border-radius: 16px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.3s ease;
+  display: block;
+  margin: 0 auto;
 }
 
-.company-image img:hover {
+.imageColumn img:hover {
   transform: scale(1.02);
 }
 
-/* === SECCIÓN DE VALORES === */
-.values-section {
+/* === SECCIÓN VALORES === */
+.valuesSection {
   display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
   align-items: center;
   justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 40px;
 }
 
-.values-image {
+/* === IMAGEN VALORES (MEDALLA) === */
+.valuesImage {
   flex: 1 1 45%;
-  text-align: center;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.values-image img {
+.valuesImage img {
+  max-width: 280px;
   width: 100%;
-  max-width: 380px;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
   border-radius: 16px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+  display: block;
+  margin: 0 auto;
 }
 
-.values-list {
+.valuesImage img:hover {
+  transform: scale(1.05);
+}
+
+/* === LISTA DE VALORES === */
+.valuesList {
   flex: 1 1 45%;
+  min-width: 280px;
 }
 
-.values-list h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+.valuesList h2 {
   color: #f0f6f2;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   text-align: left;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-.values-list h2 span {
+.valuesList h2 span {
   color: #BDE038;
 }
 
-.values-list ul {
+.valuesList ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.values-list li {
+.valuesList li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 15px;
-  font-weight: 500;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
   padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-  transition: background 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.values-list li:hover {
+.valuesList li:hover {
   background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .company-intro,
-  .values-section {
-    flex-direction: column;
-    text-align: center;
+.valuesList li svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: #0a774f;
+  filter: drop-shadow(0 2px 4px rgba(10, 119, 79, 0.3));
+}
+
+.valuesList li span {
+  flex: 1;
+  letter-spacing: 0.5px;
+}
+
+/* === SCROLLBAR PERSONALIZADA === */
+.companyPresentation::-webkit-scrollbar {
+  width: 10px;
+}
+.companyPresentation::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+.companyPresentation::-webkit-scrollbar-thumb {
+  background: rgba(189, 224, 56, 0.5);
+  border-radius: 5px;
+}
+.companyPresentation::-webkit-scrollbar-thumb:hover {
+  background: rgba(189, 224, 56, 0.7);
+}
+
+/* === ANIMACIONES === */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.introSection { animation: fadeInUp 0.6s ease-out; }
+.valuesSection { animation: fadeInUp 0.6s ease-out 0.2s both; }
+
+/* === RESPONSIVE TABLETS === */
+@media (max-width: 1024px) {
+  .companyPresentation {
     padding: 1.5rem;
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+  }
+  .contentWrapper {
+    padding: 2rem;
+  }
+  .textColumn h1 { font-size: 2rem; }
+  .textColumn h1 span { font-size: 1.2rem; }
+  .valuesList h2 { font-size: 1.8rem; }
+}
+
+/* === RESPONSIVE MÓVILES === */
+@media (max-width: 768px) {
+  .companyPresentation {
+    padding: 1rem;
+    padding-top: 5rem;
+    padding-left: 1rem;
+    padding-bottom: 2rem;
+    background-attachment: scroll;
+    --sidebar-width-desktop: 0px;
   }
 
-  .company-text {
-    text-align: left;
+  .contentWrapper {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 16px;
   }
 
-  .company-text .title {
-    font-size: 1.8rem;
+  .introSection,
+  .valuesSection {
+    flex-direction: column;
+    gap: 1.8rem;
   }
 
-  .values-list h2 {
+  .textColumn,
+  .imageColumn,
+  .valuesImage,
+  .valuesList {
+    flex: 1 1 100%;
     text-align: center;
   }
+
+  .textColumn h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .textColumn h1 span { font-size: 1.1rem; }
+  .textColumn p { font-size: 0.95rem; line-height: 1.6; }
+
+  .imageColumn img,
+  .valuesImage img {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .valuesImage img {
+    max-width: 240px;
+    max-height: 240px;
+  }
+
+  .valuesList h2 { text-align: center; font-size: 1.6rem; }
+  .valuesList li { font-size: 0.9rem; padding: 0.7rem 0.9rem; }
+  .valuesList li svg { width: 20px; height: 20px; }
+}
+
+/* === MÓVILES PEQUEÑOS === */
+@media (max-width: 480px) {
+  .companyPresentation { padding: 0.75rem; padding-top: 4.5rem; }
+  .contentWrapper { padding: 1.25rem; border-radius: 16px; }
+  .textColumn h1 { font-size: 1.5rem; }
+  .textColumn h1 span { font-size: 1rem; }
+  .textColumn p { font-size: 0.9rem; line-height: 1.5; }
+  .valuesList h2 { font-size: 1.4rem; }
+  .valuesList li { font-size: 0.85rem; padding: 0.6rem 0.8rem; gap: 0.6rem; }
+  .valuesList li svg { width: 18px; height: 18px; }
+  .valuesImage img { max-width: 200px; max-height: 200px; }
+}
+
+/* === MÓVILES MUY PEQUEÑOS === */
+@media (max-width: 375px) {
+  .companyPresentation { padding: 0.5rem; padding-top: 4rem; }
+  .contentWrapper { padding: 1rem; border-radius: 12px; }
+  .textColumn h1 { font-size: 1.3rem; }
+  .textColumn h1 span { font-size: 0.9rem; }
+  .textColumn p { font-size: 0.85rem; }
+  .valuesList h2 { font-size: 1.2rem; }
+  .valuesList li { font-size: 0.8rem; padding: 0.5rem 0.7rem; }
+  .valuesList li svg { width: 16px; height: 16px; }
+  .valuesImage img { max-width: 180px; max-height: 180px; }
+}
+
+/* === LANDSCAPE MÓVIL === */
+@media (max-width: 768px) and (orientation: landscape) {
+  .companyPresentation { padding-top: 3rem; }
+  .contentWrapper { padding: 1.25rem; }
+}
+
+/* === GLOBAL FALLBACKS === */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
